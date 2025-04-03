@@ -14,10 +14,28 @@ document.addEventListener('DOMContentLoaded', function() {
       name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
   }
 
-  // 1. Get the value of the 'count' cookie
-  // 2. If the cookie exists, increment the value and update the cookie
-  // 3. If the cookie does not exist, create it and set the value to 1
-  // 4. Display the count on the webpage
+  function incrementCount() {
+      let count = getCookie("count");
 
-  // your code here
+      if (count === null) {
+          count = 0; // Initialize if cookie doesn't exist
+      } else {
+          count = parseInt(count, 10);
+      }
+
+      count++; // Increment the count
+
+      setCookie("count", count, 7); // Save the updated count for 7 days
+
+      // Ensure the count display element exists
+      let countElement = document.getElementById("countDisplay");
+      if (countElement) {
+          countElement.textContent = count;
+      } else {
+          console.error("Element with ID 'countDisplay' not found.");
+      }
+  }
+
+  // Call the function when the page loads
+  incrementCount();
 });
